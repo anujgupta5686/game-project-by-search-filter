@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="index.css" />
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <title>game proejct</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 main-part1">
+          <div class="row">
+            <div class="col-sm-6 mx-auto">
+              <div class="input-group mt-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search Game"
+                  aria-label="Recipient's username"
+                  aria-describedby="button-addon2"
+                  id="gameName"
+                />
+                <button
+                  class="btn btn-outline-secondary text-danger"
+                  type="button"
+                  onclick="showData()"
+                >
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="col-sm-8 mx-auto mt-4 d-flex justify-content-around flex-wrap"
+            >
+                <div
+                id="cardss"
+                class="d-flex justify-content-around flex-wrap"
+            ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- All game written -->
+      <div class="row">
+        <div class="col-sm-12">
+          <h1 class="text-warning text-center">All Games</h1>
+        </div>
+      </div>
+      <div class="col-sm-12 main-part2">
+        <div class="row">
+          <div class="col-sm-12 mx-auto bg-info">
+            <div
+              id="cards"
+              class="d-flex justify-content-around flex-wrap"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    fetch(
+      "https://s3-ap-southeast-1.amazonaws.com/he-public-data/gamesarena274f2bf.json"
+    )
+      .then((data) => {
+        return data.json();
+      })
+      .then((showData) => {
+        let data1 = "";
+        showData.map((value) => {
+          data1 += `
+                <div class="card mb-5" style="width:30%;">
+                        <div class="card-body">
+                        <h2 class="card-title">Title : ${value.title}</h2>
+                        <h3 class="card-text"> Platform : ${value.platform}</h3>
+                        <h4 class="card-title"> Score : ${value.score}</h4>
+                        <h4 class="card-title"> Genre : ${value.genre}</h4>
+                        <h4 class="card-title"> Edit Choice : ${value.editors_choice}</h4>
+                        </div>
+                </div>
+                    
+                `;
+        });
+        document.getElementById("cards").innerHTML = data1;
+      });
+
+    function showData() {
+      let getValue = document.getElementById("gameName").value;
+      fetch(
+        "https://s3-ap-southeast-1.amazonaws.com/he-public-data/gamesarena274f2bf.json"
+      )
+        .then((sfatched) => {
+          return sfatched.json();
+        })
+        .then((fatched) => {
+          let fatchedData = "";
+          fatched.map((cvalue) => {
+            if (cvalue.title == getValue ||cvalue.platform == getValue ||cvalue.score == getValue ||cvalue.genre == getValue ||cvalue.editors_choice == getValue) 
+            {
+                fatchedData+=
+                `
+                <div class="card ml-5 mb-3" style="width: 30%">
+                    <div class="card-body">
+                        <h2 class="card-title">Title : ${cvalue.title}</h2>
+                        <h3 class="card-text"> Platform : ${cvalue.platform}</h3>
+                        <h4 class="card-title"> Score : ${cvalue.score}</h4>
+                        <h4 class="card-title"> Genre : ${cvalue.genre}</h4>
+                        <h4 class="card-title"> Edit Choice : ${cvalue.editors_choice}</h4>
+                        </div>
+              </div>
+                `
+                ;
+            }
+          });
+          document.getElementById("cards").innerHTML = fatchedData;
+        });
+    }
+  </script>
+</html>
