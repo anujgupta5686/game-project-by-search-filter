@@ -1,1 +1,8 @@
 
+.bodySet{
+    background-color:rgba(0, 0, 255, 0.2);
+    border-radius: 5px;
+}
+.second{
+    background-color: aquamarine;
+}
