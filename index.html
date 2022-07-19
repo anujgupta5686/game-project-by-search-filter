@@ -70,7 +70,7 @@
       </div>
       <div class="col-sm-12 main-part2">
         <div class="row">
-          <div class="col-sm-12 mx-auto bg-info">
+          <div class="col-sm-12 mx-auto second">
             <div
               id="cards"
               class="d-flex justify-content-around flex-wrap"
@@ -82,32 +82,7 @@
   </body>
 
   <script>
-    fetch(
-      "https://s3-ap-southeast-1.amazonaws.com/he-public-data/gamesarena274f2bf.json"
-    )
-      .then((data) => {
-        return data.json();
-      })
-      .then((showData) => {
-        let data1 = "";
-        showData.map((value) => {
-          data1 += `
-                <div class="card mb-5" style="width:30%;">
-                        <div class="card-body">
-                        <h2 class="card-title">Title : ${value.title}</h2>
-                        <h3 class="card-text"> Platform : ${value.platform}</h3>
-                        <h4 class="card-title"> Score : ${value.score}</h4>
-                        <h4 class="card-title"> Genre : ${value.genre}</h4>
-                        <h4 class="card-title"> Edit Choice : ${value.editors_choice}</h4>
-                        </div>
-                </div>
-                    
-                `;
-        });
-        document.getElementById("cards").innerHTML = data1;
-      });
-
-    function showData() {
+      function showData() {
       let getValue = document.getElementById("gameName").value;
       fetch(
         "https://s3-ap-southeast-1.amazonaws.com/he-public-data/gamesarena274f2bf.json"
@@ -138,5 +113,34 @@
           document.getElementById("cards").innerHTML = fatchedData;
         });
     }
+
+
+
+    fetch(
+      "https://s3-ap-southeast-1.amazonaws.com/he-public-data/gamesarena274f2bf.json"
+    )
+      .then((data) => {
+        return data.json();
+      })
+      .then((showData) => {
+        let data1 = "";
+        showData.map((value) => {
+          data1 += `
+                <div class="card mb-5" style="width:30%;">
+                        <div class="card-body text-justify bodySet">
+                        <h2 class="card-title">Title : ${value.title}</h2>
+                        <h3 class="card-text"> Platform : ${value.platform}</h3>
+                        <h4 class="card-title"> Score : ${value.score}</h4>
+                        <h4 class="card-title"> Genre : ${value.genre}</h4>
+                        <h4 class="card-title"> Edit Choice : ${value.editors_choice}</h4>
+                        </div>
+                </div>
+                    
+                `;
+        });
+        document.getElementById("cards").innerHTML = data1;
+      });
+
+    
   </script>
 </html>
